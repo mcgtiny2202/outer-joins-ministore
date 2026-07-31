@@ -34,8 +34,16 @@ WHERE P.producto_id is NULL;
 -- todos los productos y todas las ventas sin perder ninguna fila,
 -- identificando tanto productos sin ventas como ventas sin producto.
 
-SELECT *
+SELECT P.*, V.*
 FROM productos P
-FULL OUTER JOIN ventas V
-ON P.producto_id = V.producto_id;
+LEFT JOIN ventas V ON P.producto_id = V.producto_id
+
+UNION ALL
+
+SELECT P.*, V.*
+FROM productos P
+RIGHT JOIN ventas V ON P.producto_id = V.producto_id
+WHERE P.producto_id IS NULL; -- Trae solo lo que el LEFT JOIN no cubrió
+
+
 
