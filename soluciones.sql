@@ -13,8 +13,8 @@
 SELECT *
 FROM productos P
 LEFT JOIN ventas V
-ON P.producto_id = V.producto_id
-WHERE V.venta_id is NULL;
+ON P.producto_id = V.producto_id;
+
 
 -- ── CONSULTA 2: RIGHT JOIN ────────────────
 -- Pregunta de negocio: ¿Existen ventas registradas con productos
@@ -26,7 +26,7 @@ SELECT *
 FROM productos P
 RIGHT JOIN ventas V
 ON P.producto_id = V.producto_id
-WHERE P.productO_id is NULL;
+WHERE P.producto_id is NULL;
 
 -- ── CONSULTA 3: FULL OUTER JOIN ───────────
 -- Pregunta de negocio: Vista completa de auditoría que muestre
