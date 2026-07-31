@@ -13,7 +13,8 @@
 SELECT *
 FROM productos P
 LEFT JOIN ventas V
-ON P.producto_id = V.producto_id;
+ON P.producto_id = V.producto_id
+WHERE P.producto_id is NULL;
 
 
 -- ── CONSULTA 2: RIGHT JOIN ────────────────
