@@ -14,13 +14,6 @@ A la izquierda mi consulta se encuentra la tabla productos y a la derecha la tab
 en la Consulta 1 y que producto_id de productos sea NULL en la Consulta 2.**
 Imaginemos que tenemos 2 tablas con estos datos reales
 
-Tabla productos 
-PID: 1 | Nombre: LaptopID: 
-     2 | Nombre: MouseTabla 
-     
-Tabla ventas 
-Venta: 101 | Producto_ID: 1 (Venta de una Laptop)
-Venta: 102 | Producto_ID: 99 (Venta con ID inválido/inexistente)
 
 Consulta 1: El LEFT JOIN original
 SELECT * FROM productos P 
@@ -28,10 +21,12 @@ LEFT JOIN ventas V ON P.producto_id = V.producto_id
 
 Qué significa si venta_id es NULL: Significa que el producto existe en tu inventario, pero nunca se ha vendido.
 
-El resultado mostrará al producto Mouse (ID 2). Como nadie ha comprado un Mouse, la base de datos no encuentra ninguna fila en la tabla 
-ventas para ese ID. Para poder mostrarte el producto de todos modos, rellena los campos de la venta con NULL.
+El resultado mostrará que los productos (108) Hub USB-C 7p y (109) Parlante Bluetooth existen pero nunca se han vendido.  Como nadie ha comprado un Hub USB-C 7p ni un Parlante Bluetooth, la base de datos no encuentra ninguna fila en la tabla 
+ventas para esos producto_ids. Para poder mostrar los productos de todos modos, rellena los campos de la venta con NULL.
 
-Fila del resultado: [2, 'Mouse', NULL, NULL]
+Fila del resultado:
+108	Hub USB-C 7p	Accesorios	45.00	NULL	NULL	NULL	NULL	NULL
+109	Parlante Bluetooth	Audio	60.00	NULL	NULL	NULL	NULL	NULL
 
 Consulta 2: consulta con RIGHT JOIN y el filtro IS NULL
 
@@ -40,9 +35,11 @@ RIGHT JOIN ventas V ON P.producto_id = V.producto_id
 WHERE P.producto_id IS NULL
 
 Si el producto_id de la tabla productos es NULL: Significa que existe una venta registrada de un producto que no existe en tu catálogo.
-El resultado mostrará la venta 102. Esa venta apunta al producto_id 99, pero en la tabla de productos no hay ningún ID 99. 
+El resultado mostrará la venta 10. Esa venta apunta al producto_id 999, pero en la tabla de productos no hay ningún ID 999. 
 El RIGHT JOIN trae la venta de igual forma, y al no encontrar el producto, llena los datos de la tabla productos con NULL. 
-El filtro WHERE hace que veas solo estos errores.Fila del resultado: [NULL, NULL, 102, 99]
+El filtro WHERE hace que veas solo estos errores. 
+
+Fila del resultado: NULL	NULL	NULL	NULL	10	999	205	1	2024-03-25
 
 
 **¿Cuándo usarías FULL OUTER JOIN en un caso real de negocio?**
